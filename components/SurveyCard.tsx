@@ -1,15 +1,21 @@
 import {formatDate} from "@/lib/utils"
+import { urlFor } from "@/lib/imageUrl";
 import { Author, Survey } from "@/sanity/types";
 import Link from "next/link";
 
 export type SurveyTypeCard = Omit<Survey, "author"> &{author?: Author}
 
 const SurveyCard = ({ post }: { post : SurveyTypeCard}) => {
-    const { _createdAt,title,category, _id, image } = post;
+    const { _createdAt,
+            title,
+            category,
+            _id,
+            image,
+            description, } = post;
     return (
         <li className="survey-card group">
           <div className="flex-between">
-            <p className="survey_card_date">{formatDate(post._createdAt)}</p>
+            <p className="survey_card_date">{formatDate(_createdAt)}</p>
           </div>
           <div className="flex-between mt-5 gap-5">
             <div className="flex-1">
@@ -18,12 +24,21 @@ const SurveyCard = ({ post }: { post : SurveyTypeCard}) => {
             
           </div>
         
-            <img src={image} alt="placeholder" className="survey-card_img" />
+          {image && (
+        <img
+          src={urlFor(image)}
+          alt="Survey Image"
+          className="survey-card_img"
+        />
+      )}
     
           <div className="flex-between gap-3 mt-5">
-           
-              <p className="text-16-medium">{category}</p>
+            <p className="startup-card_desc">{description}</p>
+          <div className="flex-between gap-3 mt-5"></div>
+            <p className="text-16-medium">{category}</p>
+            
               <Link href={`/survey/${_id}`}>Details</Link>
+
 1          </div>
         </li>
       );

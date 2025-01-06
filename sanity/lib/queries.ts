@@ -10,7 +10,7 @@ export const surveyS_QUERY =
     _id, name, image, bio
   }, 
   views,
-  description,
+  description, 
   category,
   image,
 }`);
